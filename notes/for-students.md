@@ -1,6 +1,6 @@
 # 受講生向け：welfare-time の good first issue に取り組むときの注意
 
-先端情報学セミナーD（玉田担当分）の受講生にだけ示すドキュメントです。
+先端情報学セミナーD（玉田担当分）の受講生向けのドキュメントです。
 対象の [welfare-time](https://github.com/tamadalab/welfare-time) は、授業のために存在するプロジェクトではなく、実際に公開されている OSS です。授業では、これを題材にして、GitHub での開発を体験します。
 
 ## 最初に読むもの
