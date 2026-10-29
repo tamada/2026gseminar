@@ -22,6 +22,8 @@ good first issue を通じてOSS活動を実践する。
 
 ### 手順
 
+* [受講生向けの注意](notes/for-students.md)
+  * 課題の内容、Issue の選び方、提出するもの、評価の観点です。
 * [実習手順書](notes/practice.md)
   * 準備、Issue の選び方、Fork と Clone、修正、PR の作成、レビューへの対応までの手順です。
   * Git や GitHub の使い方が分からないときの参考資料も、付録に載せています。

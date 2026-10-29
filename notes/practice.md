@@ -3,6 +3,8 @@
 対象：[tamadalab/welfare-time](https://github.com/tamadalab/welfare-time)
 コマンドは、ターミナル（Windows は Git Bash か WSL）で実行します。`<...>` の部分は、自分の値に置き換えてください。
 
+取り組む前に、プロジェクトの [CONTRIBUTING.md](https://github.com/tamadalab/welfare-time/blob/main/CONTRIBUTING.md)（貢献のしかた）と [CODE_OF_CONDUCT.md](https://github.com/tamadalab/welfare-time/blob/main/CODE_OF_CONDUCT.md)（行動規範）を読んでください。この手順書は、CONTRIBUTING.md の流れを、具体的なコマンドで補ったものです。
+
 全体の流れ：**0 準備 → 1 Issue を選ぶ → 2 Fork と Clone → 3 動作確認 → 4 ブランチ → 5 修正 → 6 確認 → 7 commit と push → 8 PR → 9 レビュー対応**
 
 ---
@@ -28,6 +30,10 @@ just --version
 | Node | `brew install node` |
 | Hugo (extended) | `brew install hugo` |
 | just | `brew install just` |
+
+必要な版は、welfare-time の [README](https://github.com/tamadalab/welfare-time#開発環境) の「開発環境」を見てください。
+
+> Python、Node、Hugo を手元に入れられない場合は、docker か podman があれば、コンテナでサイトを確認できます（「3. 動作確認」を参照）。git、gh、just は必要です。
 
 GitHub にログインします（ブラウザが開くので、案内に従います）。
 
@@ -95,6 +101,13 @@ just serve
 just test
 ```
 
+コンテナで確認する場合は、次のようにします（podman を使うときは `just CONTAINER=podman start`）。
+
+```bash
+just start   # 起動に少し時間がかかります。進み具合は docker logs -f welfare-time で確認できます
+just stop    # 止める
+```
+
 > 動かないときは「付録：困ったとき」を見てください。ここで詰まった場合は、修正に進まず、教員か周りの人に聞いてください。
 
 ---
@@ -149,13 +162,14 @@ just serve   # ブラウザで見た目や動作を確認
 
 ```bash
 git add <変更したファイル>
-git commit -m "<変更内容を一行で>"
-# 例: git commit -m "LABE_ を LABEL_ に改名する"
+git commit -m "<種類>: <変更内容を一行で>"
+# 例: git commit -m "refactor: LABE_ を LABEL_ に改名する"
 git push -u origin fix-<番号>-<内容>
 ```
 
 - `git add .` は、意図しないファイルが入りやすいので、避けます。
-- commit メッセージは、1行目に変更内容を簡潔に書きます。
+- commit メッセージは、1行目に変更内容を簡潔に書きます。必要なら、空行をはさんで理由を書きます。
+- welfare-time は、`feat:`、`fix:`、`docs:`、`chore:` のような種類を先頭に付けています（[Conventional Commits](https://www.conventionalcommits.org/ja/v1.0.0/)）。`git log --oneline` で、プロジェクトの慣習を確認してから書いてください。
 
 ---
 
@@ -169,7 +183,9 @@ gh pr create --repo tamadalab/welfare-time --base main
 
 **宛先（base）は `tamadalab/welfare-time` の `main`、元（compare）は自分の Fork のブランチです。**
 
-PR のタイトルと本文を書きます。**テンプレートはありません。自分で書きます。** 次の項目を含めてください。
+PR のタイトルと本文を書きます。**テンプレートはありません。自分で書きます。**
+
+タイトルは、PR の内容を端的に表すものにします。commit メッセージの 1 行目と同じ形（例：`fix: <直した内容>`）で構いません。本文には、次の項目を含めてください。
 
 ```markdown
 ## 概要
@@ -243,6 +259,7 @@ PR に「This branch has conflicts」と出た場合は、最新の `main` を�
 | `just: command not found` | just を入れる |
 | `just generate` が失敗する | Hugo が **extended 版**か、`pip install` と `npm ci` が終わっているか確認 |
 | `npm ci` が失敗する | Node のバージョンを確認（README の「開発環境」を参照） |
+| 手元に環境を作れない | docker か podman があれば、`just start` でコンテナで確認できる（3 を参照） |
 | 間違えて `main` で作業してしまった | commit する前なら、`git switch -c <新しいブランチ>` で、そのまま作業を移せる |
 | 変更を全部やり直したい（commit 前） | `git restore <ファイル>`（そのファイルの変更が消える。実行前に確認） |
 | push が拒否された | ブランチ名と、`origin`（自分の Fork）に push しているか確認 |
